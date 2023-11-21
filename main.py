@@ -20,11 +20,12 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="main.py",
-        page_icon="👋",
+        page_title="Evolution Simulator",
+        page_icon=':earth_americas:',
     )
 
-    st.write("# Welcome to Evolution simulator! 👋")
+    st.write("# Welcome to the Evolution Simulator!")
+    st.markdown("# Animation Demo")
 
     st.sidebar.success("Select a demo above.")
 
