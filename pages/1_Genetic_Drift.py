@@ -28,6 +28,15 @@ footer:after{
 
 
 def generate_offspring(seed, number_of_offsprings):
+    '''Generating offsprings per parent.
+
+    Args:
+        seed: parent 'DNA' code.
+        number_of_offsprings: amount of offsprings to generate for this parent.
+
+    Returns:
+        offspring: the list of offsprings codes.
+    '''
     offspring = []
     for _ in range(number_of_offsprings):
         offspring.append(seed)
@@ -35,11 +44,21 @@ def generate_offspring(seed, number_of_offsprings):
 
 
 def genetic_drift() -> None:
+    '''Main function for Genetic Drift page    
+
+    Args: 
+        None
+
+    Returns:
+        None
+
+    '''
     global generation, carry_on, rand_parents
     generation = 0
     carry_on = True
     rand_parents = []
 
+    #Page setup
     label_number_of_parents = "Amount of parents"
     help_number_of_parents = "Amount of parents selected randomly in every generation"
     number_of_parents = st.sidebar.slider(
@@ -70,6 +89,8 @@ def genetic_drift() -> None:
 
     seed_red = 'r'
     seed_blue = 'b'
+    
+    #First generation
     all_offspring = []
     offspring = []
     for i in range(red_rate):
@@ -105,6 +126,14 @@ def genetic_drift() -> None:
     generation += 1
 
     def gen():
+        '''Generates frames as long as simulation has not ended.
+
+        Args:
+            None
+
+        Returns: 
+            None
+        '''
         global carry_on
         i = 0
         while carry_on:
@@ -112,6 +141,15 @@ def genetic_drift() -> None:
             yield i
         
     def update(frame_number):
+        '''Updates computations and plots for every generation
+
+        Args:
+            frame_number: frame number.
+
+        Returns:
+            scat: updated scatter plot.
+            bar_pop: updated bar plot.
+        '''
         global generation, carry_on, rand_parents
 
         offspring = []

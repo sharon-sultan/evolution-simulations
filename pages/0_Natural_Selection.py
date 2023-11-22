@@ -26,11 +26,28 @@ footer:after{
 </style>
 """
 
-
 def generate_offspring(seed, mutation_rate_offspring, 
                        mutation_rate_digit, mutation_rate_digit_up, 
                        mutation_rate_digit_up_plus, 
                        mutation_rate_digit_down_minus, number_of_offsprings):
+    '''Generating offsprings per parent with random mutations.
+
+    Args:
+        seed: parent 'DNA' code.
+        mutation_rate_offspring: the chance for an offspring to go through mutation.
+        mutation_rate_digit: for an offspring who is going under mutation, 
+            this is the chance for every digit to go under mutation.
+        mutation_rate_digit_up: for a digit which is going under mutation,
+            this is the chance for it to go up over down.
+        mutation_rate_digit_up_plus: for a digit which is going under a mutation upward,
+            this is the chance to go up in +1 over +2 digits.
+        mutation_rate_digit_down_minus: for a digit which is going under a mutation downward,
+            this is the chance to go down in -1 over -2 digits. 
+        number_of_offsprings: amount of offsprings to generate for this parent.
+
+    Returns:
+        offspring: the list of offsprings codes.
+    '''
     offspring = []
     for _ in range(number_of_offsprings):
         rand_offspring = random.random()
@@ -73,6 +90,15 @@ def generate_offspring(seed, mutation_rate_offspring,
     return offspring
 
 def calculate_score(offspring, target):
+    '''Computing the distance from each of the offsprings to the target seed.
+
+    Args:
+        offspring: list of offsprings.
+        target: target sequence.
+
+    Returns:
+        scores: list of distances.
+    '''
     scores = []
     for number in offspring:
         score = sum(
@@ -82,11 +108,21 @@ def calculate_score(offspring, target):
 
 
 def natural_selection() -> None:
+    '''Main function for Natural Selection page
+
+    Args: 
+        None
+
+    Returns:
+        None
+
+    '''
     global generation,best_offsprings, carry_on
     generation = 0
     best_offsprings = []
     carry_on = True
 
+    #Page setup
     help_number_of_digits="representing the length of DNA code"
     number_of_digits = st.sidebar.slider(
        "Number of digits", 1, 20, 6, 1, help=help_number_of_digits)
@@ -150,6 +186,7 @@ def natural_selection() -> None:
     if len(target) != number_of_digits or not target.isdigit():
         st.error("Invalid target number. Please enter a %s-digit number." %number_of_digits)
 
+    #First generation
     all_offspring = []
     initial_seed = seed
     initial_score = sum(abs(int(digit1) - int(digit2)) for digit1, digit2 in zip(seed, target))
@@ -173,7 +210,7 @@ def natural_selection() -> None:
     for score in min_scores:
         best_offsprings.append(offspring[scores.index(score)])
     
-    # Visualization           
+    #Visualization           
     fig = plt.figure()
     X = np.random.uniform(0,1,(len(offspring)))
     Y = np.random.uniform(0,1,(len(offspring)))
@@ -187,6 +224,14 @@ def natural_selection() -> None:
     all_offspring.append(offspring)
 
     def gen():
+        '''Generates frames as long as simulation has not ended.
+
+        Args:
+            None
+
+        Returns: 
+            None
+        '''
         global carry_on
         i = 0
         while carry_on:
@@ -194,6 +239,14 @@ def natural_selection() -> None:
             yield i
         
     def update(frame_number):
+        '''Updates computations and plots for every generation
+
+        Args:
+            frame_number: frame number.
+
+        Returns:
+            scat: updated frame.
+        '''
         global generation,best_offsprings, carry_on
 
         offspring = []
