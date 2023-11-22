@@ -24,7 +24,7 @@ footer{
     visibility:visible;
 }
 footer:after{
-    content: 'Efrat Herbst, Ofer Mokady, and Zohar Yakhini';
+    content: 'Efrat Herbst, Dr. Ofer Mokady, and Prof. Zohar Yakhini';
     display:block;
     position:relative;
     color:grey;
@@ -51,7 +51,7 @@ def run():
         
         **👈 Select a simulation from the sidebar** to watch these concepts in action.
         ### Want to learn more?
-        - Check out [a link to exolution...](https://streamlit.io)
+        - Check out [a link to evolution...](https://streamlit.io)
         ### This app is provided by...
         - Reichman university [some website?](https://github.com/streamlit/demo-self-driving)
         - Israel learning.... [some website?](https://github.com/streamlit/demo-uber-nyc-pickups)
