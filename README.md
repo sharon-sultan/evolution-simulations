@@ -4,3 +4,7 @@ This app is desined to demonstrate some of the concepts underlying the complex p
         
 Check it out on [Evolution Simulator Website](https://evolution-simulations-v1.streamlit.app/)
 
+v1 November 2023
+
+Author:
+* @Efiherbst31 : https://github.com/EfiHerbst31
