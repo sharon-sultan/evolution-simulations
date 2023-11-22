@@ -40,12 +40,31 @@ def genetic_drift() -> None:
     carry_on = True
     rand_parents = []
 
-    number_of_parents = st.sidebar.slider("Amount of parents", 2, 1000, 100, 10, help="Amount of parents selected randomly in every generation")
-    number_of_offsprings = st.sidebar.slider("Offsprings per parent", 1, 1000, 5, 1, help="Amount of offsprings per parent in each generation")
-    number_of_generations = st.sidebar.slider("Maximum generations", 10, 5000, 500, 10, help="Stop simulation after this amount of generations, unless there is a fixation")
+    label_number_of_parents = "Amount of parents"
+    help_number_of_parents = "Amount of parents selected randomly in every generation"
+    number_of_parents = st.sidebar.slider(
+        label_number_of_parents, 2, 1000, 100, 10, help=help_number_of_parents)
+    
+    label_number_of_offsprings = "Offsprings per parent"
+    help_number_of_offsprings = "Amount of offsprings per parent in each generation"
+    number_of_offsprings = st.sidebar.slider(
+        label_number_of_offsprings, 1, 1000, 5, 1, help=help_number_of_offsprings)
+    
+    label_number_of_generations = "Maximum generations"
+    help_number_of_generations = "Stop simulation after this amount of generations, \
+        unless there is a fixation"
+    number_of_generations = st.sidebar.slider(
+        label_number_of_generations, 10, 5000, 500, 10, help=help_number_of_generations)
 
     placeholder_reds = int(number_of_parents/2)
-    red_rate = st.number_input(label="Enter the amount of red items out of %s initial parents: " %number_of_parents, min_value=1, max_value=number_of_parents, value=placeholder_reds, help="Defines the initial distribution of red and blue items")
+    label_red_rate = "Enter the amount of red items out of %s initial parents: " %number_of_parents
+    help_red_rate = "Defines the initial distribution of red and blue items"
+    red_rate = st.number_input(
+        label=label_red_rate, 
+        min_value=1, 
+        max_value=number_of_parents, 
+        value=placeholder_reds, 
+        help=help_red_rate)
     blue_rate = number_of_parents - red_rate
     st.button("Re-run")
 
@@ -127,7 +146,6 @@ def genetic_drift() -> None:
 
         generation += 1        
 
-
         return scat, bar_pop,
 
     rcParams['animation.embed_limit'] = 2**128
@@ -149,7 +167,8 @@ st.sidebar.write("Change any of the following parameters to generate a new simul
 st.write(
     """This simulation demonstrates the genetic drift process, starting with two populations 
     of specified distribution. In each generation parents are randomly selected to create 
-    the next generation. Fixation is reached when one population dominates and the other is extincted."""
+    the next generation. Fixation is reached when one population dominates and the other 
+    is extincted."""
 )
 with st.expander("Learn more"):
     st.write("""

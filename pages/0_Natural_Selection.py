@@ -27,7 +27,10 @@ footer:after{
 """
 
 
-def generate_offspring(seed, mutation_rate_offspring, mutation_rate_digit, mutation_rate_digit_up, mutation_rate_digit_up_plus, mutation_rate_digit_down_minus, number_of_offsprings):
+def generate_offspring(seed, mutation_rate_offspring, 
+                       mutation_rate_digit, mutation_rate_digit_up, 
+                       mutation_rate_digit_up_plus, 
+                       mutation_rate_digit_down_minus, number_of_offsprings):
     offspring = []
     for _ in range(number_of_offsprings):
         rand_offspring = random.random()
@@ -48,7 +51,7 @@ def generate_offspring(seed, mutation_rate_offspring, mutation_rate_digit, mutat
                               new_digit = new_digit + 1
                             else:
                               rand_jump = random.random()
-                              if rand_jump < mutation_rate_digit_up_plus: # +1 or +2
+                              if rand_jump < mutation_rate_digit_up_plus: 
                                 new_digit = new_digit + 1
                               else:
                                 new_digit = new_digit + 2
@@ -57,7 +60,7 @@ def generate_offspring(seed, mutation_rate_offspring, mutation_rate_digit, mutat
                             new_digit = new_digit - 1
                           else:
                             rand_jump = random.random()
-                            if rand_jump < mutation_rate_digit_down_minus: # -1 or -2
+                            if rand_jump < mutation_rate_digit_down_minus: 
                               new_digit = new_digit - 1
                             else:
                               new_digit = new_digit - 2
@@ -72,7 +75,8 @@ def generate_offspring(seed, mutation_rate_offspring, mutation_rate_digit, mutat
 def calculate_score(offspring, target):
     scores = []
     for number in offspring:
-        score = sum(abs(int(digit1) - int(digit2)) for digit1, digit2 in zip(str(number), target))
+        score = sum(
+           abs(int(digit1) - int(digit2)) for digit1, digit2 in zip(str(number), target))
         scores.append(score)
     return scores
 
@@ -83,20 +87,62 @@ def natural_selection() -> None:
     best_offsprings = []
     carry_on = True
 
-    number_of_digits = st.sidebar.slider("Number of digits", 1, 20, 6, 1, help="representing the length of DNA code")
+    help_number_of_digits="representing the length of DNA code"
+    number_of_digits = st.sidebar.slider(
+       "Number of digits", 1, 20, 6, 1, help=help_number_of_digits)
+    
     placeholder_seed = '5'*number_of_digits
+    label_seed = "Enter the seed (%s-digit number): " %number_of_digits
+    help_seed = "Representing the DNA of the original parent"
+    seed = st.text_input(
+       label=label_seed, value=placeholder_seed, max_chars=number_of_digits, help=help_seed)
+    
     placeholder_target = '9'*number_of_digits
-    seed = st.text_input(label="Enter the seed (%s-digit number): " %number_of_digits, value=placeholder_seed, max_chars=number_of_digits, help="Representing the DNA of the original parent")
-    target = st.text_input(label="Enter the target (%s-digit number): " %number_of_digits, value=placeholder_target, max_chars=number_of_digits, help="Representing the 'DNA' code which best fits the current environment")
+    label_target = "Enter the target (%s-digit number): " %number_of_digits
+    help_target = "Representing the 'DNA' code which best fits the current environment"
+    target = st.text_input(
+       label=label_target, value=placeholder_target, max_chars=number_of_digits, help=help_target)
+    
     st.button("Re-run")
 
-    average_number_of_offsprings = st.sidebar.slider("Number of offsprings on average", 1.0, 2.0, 1.2, 0.1, help="Offspring rate per parent is randomly drawn from a poisson distribution with the selected rate")
-    number_of_parents = st.sidebar.slider("Number of parents", 0, 1000, 200, 10, help="Amount of parents selected for every generation")
-    mutation_rate_offspring = st.sidebar.slider("Chance for mutation in an offspring", 0.0, 1.0, 0.05, 0.01, help="Offspring chance to have any mutation") 
-    mutation_rate_digit = st.sidebar.slider("Chance for mutation in a digit", 0.0, 1.0, 0.1, 0.05, help="For an offspring who got the chance for a mutation, this is the chance for a mutation to occur in each of the digits in the offsprings' 'DNA code'.")
-    mutation_rate_digit_up = st.sidebar.slider("Chance for mutated digit to go up (versus down)", 0.0, 1.0, 0.5, 0.05, help="If a digit got a chance to mutate, this is the chance to move up or down")
-    mutation_rate_digit_up_plus = st.sidebar.slider("Chance for mutated digit to jump 1 step up (versus 2 steps up)", 0.0, 1.0, 1.0, 0.05, help="For a digit which got a chance to mutate up, this is the chance to move one digit up over two digits up")
-    mutation_rate_digit_down_minus = st.sidebar.slider("Chance for mutated digit to jump 1 step down (versus 2 steps down)", 0.0, 1.0, 1.0, 0.05, help="For a digit which got a chance to mutate down, this is the chance to move one digit down over two digits down")
+    label_average_number_of_offsprings = "Number of offsprings on average"
+    help_average_number_of_offsprings = "Offspring rate per parent is randomly drawn from a poisson \
+        distribution with the selected rate"
+    average_number_of_offsprings = st.sidebar.slider(
+       label_average_number_of_offsprings, 1.0, 2.0, 1.2, 0.1, help=help_average_number_of_offsprings)
+    
+    label_number_of_parents = "Number of parents"
+    help_number_of_parents = "Amount of parents selected for every generation"
+    number_of_parents = st.sidebar.slider(
+       label_number_of_parents, 0, 1000, 200, 10, help=help_number_of_parents)
+    
+    label_mutation_rate_offspring = "Chance for mutation in an offspring"
+    help_mutation_rate_offspring = "Offspring chance to have any mutation"
+    mutation_rate_offspring = st.sidebar.slider(
+       label_mutation_rate_offspring, 0.0, 1.0, 0.05, 0.01, help=help_mutation_rate_offspring) 
+    
+    label_mutation_rate_digit = "Chance for mutation in a digit"
+    help_mutation_rate_digit = "For an offspring who got the chance for a mutation, this is the chance \
+        for a mutation to occur in each of the digits in the offsprings' 'DNA code'."
+    mutation_rate_digit = st.sidebar.slider(
+       label_mutation_rate_digit, 0.0, 1.0, 0.1, 0.05, help=help_mutation_rate_digit)
+
+    label_mutation_rate_digit_up = "Chance for mutated digit to go up (versus down)"
+    help_mutation_rate_digit_up = "If a digit got a chance to mutate, this is the chance to move up or down"
+    mutation_rate_digit_up = st.sidebar.slider(
+       label_mutation_rate_digit_up, 0.0, 1.0, 0.5, 0.05, help=help_mutation_rate_digit_up)
+    
+    label_mutation_rate_digit_up_plus = "Chance for mutated digit to jump 1 step up (versus 2 steps up)"
+    help_mutation_rate_digit_up_plus = "For a digit which got a chance to mutate up, this is the chance \
+        to move one digit up over two digits up"
+    mutation_rate_digit_up_plus = st.sidebar.slider(
+       label_mutation_rate_digit_up_plus, 0.0, 1.0, 1.0, 0.05, help=help_mutation_rate_digit_up_plus)
+
+    label_mutation_rate_digit_down_minus = "Chance for mutated digit to jump 1 step down (versus 2 steps down)"
+    help_mutation_rate_digit_down_minus = "For a digit which got a chance to mutate down, this is the chance \
+        to move one digit down over two digits down"
+    mutation_rate_digit_down_minus = st.sidebar.slider(
+       label_mutation_rate_digit_down_minus, 0.0, 1.0, 1.0, 0.05, help=help_mutation_rate_digit_down_minus)
 
     if len(seed) != number_of_digits or not seed.isdigit():
         st.error("Invalid seed number. Please enter a %s-digit number." %number_of_digits)
@@ -110,7 +156,15 @@ def natural_selection() -> None:
     offspring = []
     for i in range(number_of_parents):
         number_of_offsprings = np.random.poisson(average_number_of_offsprings)
-        offspring.extend(generate_offspring(seed, mutation_rate_offspring, mutation_rate_digit, mutation_rate_digit_up, mutation_rate_digit_up_plus, mutation_rate_digit_down_minus, number_of_offsprings))
+        offspring.extend(
+           generate_offspring(
+              seed, 
+              mutation_rate_offspring, 
+              mutation_rate_digit, 
+              mutation_rate_digit_up, 
+              mutation_rate_digit_up_plus, 
+              mutation_rate_digit_down_minus, 
+              number_of_offsprings))
     scores = calculate_score(offspring, target)
     scores_sorted = scores.copy()
     scores_sorted.sort(reverse=False)
@@ -126,7 +180,8 @@ def natural_selection() -> None:
     scat = plt.scatter(X,Y, c=scores, vmax=initial_score, vmin=0)
     cbar = plt.colorbar()
     cbar.set_label('Distance from %s' %target)
-    text_1 = 'Generation: %s, Best offspring: %s, Distance: %s \n' %(generation, best_offsprings[0], min_scores[0])
+    text_1 = 'Generation: %s, Best offspring: %s, Distance: %s \n' %(
+       generation, best_offsprings[0], min_scores[0])
     plt.title(text_1, fontsize = 11)
     generation += 1
     all_offspring.append(offspring)
@@ -144,7 +199,15 @@ def natural_selection() -> None:
         offspring = []
         for parent in best_offsprings:
             number_of_offsprings = np.random.poisson(average_number_of_offsprings)
-            offspring.extend(generate_offspring(parent, mutation_rate_offspring, mutation_rate_digit, mutation_rate_digit_up, mutation_rate_digit_up_plus, mutation_rate_digit_down_minus, number_of_offsprings))
+            offspring.extend(
+               generate_offspring(
+                  parent, 
+                  mutation_rate_offspring, 
+                  mutation_rate_digit, 
+                  mutation_rate_digit_up, 
+                  mutation_rate_digit_up_plus, 
+                  mutation_rate_digit_down_minus, 
+                  number_of_offsprings))
         scores = calculate_score(offspring, target)
         scores_sorted = scores.copy()
         scores_sorted.sort(reverse=False)
@@ -158,7 +221,8 @@ def natural_selection() -> None:
         Y = np.random.uniform(0,1,(len(offspring)))
         scat.set_offsets(np.c_[X, Y])
         scat.set_array(scores)
-        text_1 = 'Generation: %s, Best offspring: %s, Distance: %s \n' %(generation, best_offsprings[0], min_scores[0])
+        text_1 = 'Generation: %s, Best offspring: %s, Distance: %s \n' %(
+           generation, best_offsprings[0], min_scores[0])
         plt.title(text_1, fontsize = 11)
         plt.axis('off')
         generation += 1
@@ -167,8 +231,7 @@ def natural_selection() -> None:
         if min_scores[0] == 0:
             carry_on = False
             print("\nTarget reached!")
-
-
+            
         return scat,
 
     rcParams['animation.embed_limit'] = 2**128
@@ -188,18 +251,24 @@ st.markdown("# Natural Selection")
 st.sidebar.header("Parameters")
 st.sidebar.write("Change any of the following parameters to generate a new simulation")
 st.write(
-    """This simulation demonstrates the natural selection process, starting from a seed number (representing the origin parent DNA) ending at target number (representing the DNA which fits best to the environment)."""
+    """This simulation demonstrates the natural selection process, 
+    starting from a seed number (representing the origin parent DNA) ending at 
+    target number (representing the DNA which fits best to the environment)."""
 )
 with st.expander("Learn more"):
     st.write("""
-        The 'DNA code' is represented by a string of digits, where every digit represents a gene. 
-             Every 'gene' may have 10 variations represented by the digits 0-9. 
-             A random process generates mutations in every generation.
-             Mutation in every 'gene' may change it slightly so that a digit can mutate up to +-2 digits at most in every generation. 
-         The offsprings which have a 'DNA' number closest to the target 'DNA' are selected as parents for the next generation.
+        The 'DNA code' is represented by a string of digits, where every digit 
+             represents a gene. Every 'gene' may have 10 variations represented 
+             by the digits 0-9. A random process generates mutations in every 
+             generation. Mutation in every 'gene' may change it slightly so 
+             that a digit can mutate up to +-2 digits at most in every generation. 
+         The offsprings which have a 'DNA' number closest to the target 'DNA' 
+             are selected as parents for the next generation.
         
-    Changing the parameters, seed and target numbers will automatically generate a new simulation.
-             You can also click the Re-run button to generate a new simulation using the same parameters to observe a different random process.
+    Changing the parameters, seed and target numbers will automatically generate 
+             a new simulation. You can also click the Re-run button to generate 
+             a new simulation using the same parameters to observe a different 
+             random process.
     """)
 
 

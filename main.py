@@ -47,9 +47,11 @@ def run():
 
     st.markdown(
         """
-        This app is desined to demonstrate some of the concepts underlying the complex process of Evolution, as research understand it to date.
+        This app is desined to demonstrate some of the concepts underlying 
+        the complex process of Evolution, as research understand it to date.
         
-        **👈 Select a simulation from the sidebar** to watch these concepts in action.
+        **👈 Select a simulation from the sidebar** to watch these concepts 
+        in action.
         ### Want to learn more?
         - Check out [a link to evolution...](https://streamlit.io)
         ### This app is provided by...
