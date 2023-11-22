@@ -24,7 +24,7 @@ footer{
     visibility:visible;
 }
 footer:after{
-    content: 'Efrat Herbst, Dr. Ofer Mokady, and Prof. Zohar Yakhini';
+    content: 'Efrat Herbst, Dr. Ofer Mokady and Prof. Zohar Yakhini';
     display:block;
     position:relative;
     color:grey;
