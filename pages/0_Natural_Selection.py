@@ -8,6 +8,25 @@ import random
 import re
 import streamlit as st
 
+add_footer="""
+<style>
+
+footer{
+    visibility:visible;
+}
+footer:after{
+    content: 'Efrat Herbst, Dr. Ofer Mokady and Prof. Zohar Yakhini';
+    display:block;
+    position:relative;
+    color:grey;
+    # padding:5px;
+    top:3px;
+}
+
+</style>
+"""
+
+
 def generate_offspring(seed, mutation_rate_offspring, mutation_rate_digit, mutation_rate_digit_up, mutation_rate_digit_up_plus, mutation_rate_digit_down_minus, number_of_offsprings):
     offspring = []
     for _ in range(number_of_offsprings):
@@ -164,6 +183,7 @@ def natural_selection() -> None:
     st.components.v1.html(new_animjs,height=600)
 
 st.set_page_config(page_title="Natural Selection", page_icon=':earth_americas:')
+st.markdown(add_footer, unsafe_allow_html=True)
 st.markdown("# Natural Selection")
 st.sidebar.header("Parameters")
 st.sidebar.write("Change any of the following parameters to generate a new simulation")

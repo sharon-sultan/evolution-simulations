@@ -8,6 +8,25 @@ import random
 import re
 import streamlit as st
 
+add_footer="""
+<style>
+
+footer{
+    visibility:visible;
+}
+footer:after{
+    content: 'Efrat Herbst, Dr. Ofer Mokady and Prof. Zohar Yakhini';
+    display:block;
+    position:relative;
+    color:grey;
+    # padding:5px;
+    top:3px;
+}
+
+</style>
+"""
+
+
 def generate_offspring(seed, number_of_offsprings):
     offspring = []
     for _ in range(number_of_offsprings):
@@ -123,6 +142,7 @@ def genetic_drift() -> None:
     st.components.v1.html(new_animjs,height=600)
 
 st.set_page_config(page_title="Genetic Drift", page_icon=':earth_americas:')
+st.markdown(add_footer, unsafe_allow_html=True)
 st.markdown("# Genetic Drift")
 st.sidebar.header("Parameters")
 st.sidebar.write("Change any of the following parameters to generate a new simulation")
