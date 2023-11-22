@@ -1,7 +1,6 @@
-# Welcome to streamlit
+# Welcome to Evolution Simulator App 
 
-This is the app you get when you run `streamlit hello`, extracted as its own app.
+This app is desined to demonstrate some of the concepts underlying the complex process of Evolution, as research understand it to date.
+        
+Check it out on [Evolution Simulator Website](https://evolution-simulations.streamlit.app/)
 
-Edit [Hello.py](./Hello.py) to customize this app to your heart's desire. ❤️
-
-Check it out on [Streamlit Community Cloud](https://st-hello-app.streamlit.app/)

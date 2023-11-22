@@ -168,7 +168,7 @@ st.markdown("# Natural Selection")
 st.sidebar.header("Parameters")
 st.sidebar.write("Change any of the following parameters to generate a new simulation")
 st.write(
-    """This page demonstrates the natural selection process, starting from a seed number (representing the origin parent DNA) ending at target number (representing the DNA which fits best to the environment)."""
+    """This simulation demonstrates the natural selection process, starting from a seed number (representing the origin parent DNA) ending at target number (representing the DNA which fits best to the environment)."""
 )
 with st.expander("Learn more"):
     st.write("""

@@ -17,33 +17,44 @@ from streamlit.logger import get_logger
 
 LOGGER = get_logger(__name__)
 
+add_footer="""
+<style>
+
+footer{
+    visibility:visible;
+}
+footer:after{
+    content: 'Efrat Herbst, Ofer Mokady, and Zohar Yakhini';
+    display:block;
+    position:relative;
+    color:grey;
+    # padding:5px;
+    top:3px;
+}
+
+</style>
+"""
 
 def run():
     st.set_page_config(
         page_title="Evolution Simulator",
         page_icon=':earth_americas:',
     )
+    st.markdown(add_footer, unsafe_allow_html=True)
 
     st.write("# Welcome to the Evolution Simulator!")
-    st.markdown("# Animation Demo")
-
-    st.sidebar.success("Select a demo above.")
+    st.sidebar.success("Select a simulation above.")
 
     st.markdown(
         """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
+        This app is desined to demonstrate some of the concepts underlying the complex process of Evolution, as research understand it to date.
+        
+        **👈 Select a simulation from the sidebar** to watch these concepts in action.
         ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+        - Check out [a link to exolution...](https://streamlit.io)
+        ### This app is provided by...
+        - Reichman university [some website?](https://github.com/streamlit/demo-self-driving)
+        - Israel learning.... [some website?](https://github.com/streamlit/demo-uber-nyc-pickups)
     """
     )
 
