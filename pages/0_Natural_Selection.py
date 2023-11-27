@@ -1,14 +1,15 @@
+import random
+import re
+
 from functools import partial
 from matplotlib import rcParams
 from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import random
-import re
 import streamlit as st
 
-add_footer="""
+_PAGE_FOOTER="""
 <style>
 
 footer{
@@ -26,7 +27,8 @@ footer:after{
 </style>
 """
 
-def generate_offspring(seed, mutation_rate_offspring, 
+
+def _generate_offspring(seed, mutation_rate_offspring, 
                        mutation_rate_digit, mutation_rate_digit_up, 
                        mutation_rate_digit_up_plus, 
                        mutation_rate_digit_down_minus, number_of_offsprings):
@@ -194,7 +196,7 @@ def natural_selection() -> None:
     for i in range(number_of_parents):
         number_of_offsprings = np.random.poisson(average_number_of_offsprings)
         offspring.extend(
-           generate_offspring(
+           _generate_offspring(
               seed, 
               mutation_rate_offspring, 
               mutation_rate_digit, 
@@ -253,7 +255,7 @@ def natural_selection() -> None:
         for parent in best_offsprings:
             number_of_offsprings = np.random.poisson(average_number_of_offsprings)
             offspring.extend(
-               generate_offspring(
+               _generate_offspring(
                   parent, 
                   mutation_rate_offspring, 
                   mutation_rate_digit, 
@@ -299,7 +301,7 @@ def natural_selection() -> None:
     st.components.v1.html(new_animjs,height=600)
 
 st.set_page_config(page_title="Natural Selection", page_icon=':earth_americas:')
-st.markdown(add_footer, unsafe_allow_html=True)
+st.markdown(_PAGE_FOOTER, unsafe_allow_html=True)
 st.markdown("# Natural Selection")
 st.sidebar.header("Parameters")
 st.sidebar.write("Change any of the following parameters to generate a new simulation")
